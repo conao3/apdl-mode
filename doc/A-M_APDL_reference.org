@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-22>
+#+DATE: Time-stamp: <2015-07-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -45,6 +45,46 @@
 #+TEXT: Please report the faults.
 
 * WorkBench to APDL Translation
+** Contacts
+*** Frictional contact V161
+    #+BEGIN_SRC ansys
+/wb,contact,start          !  starting to send contact
+/com,*********** Create Contact "Frictional - Solid To Solid" ***********
+/com,            Real Constant Set For Above Contact Is 4 & 3
+*set,tid,4
+*set,cid,3
+r,tid
+r,cid
+et,tid,170
+et,cid,174
+eblock,10,,,34
+(15i9)
+...
+keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
+keyo,cid,10,2              ! adjust contact stiffness each NR iteration (from Program Controlled setting)
+keyo,cid,12,0              ! standard contact
+mp,mu,cid,0.2	! unitless
+keyo,cid,2,0               ! augmented Lagrange (from Program Controlled setting)
+keyo,cid,4,0               ! on Gauss point (from Program Controlled setting)
+keyo,cid,9,0               ! use real geometry with stepped effects
+keyo,cid,7,0               ! No Prediction
+rmod,tid,3,1.	! FKN
+rmod,tid,5,0.	! ICONT
+rmod,tid,6,0.	! PINB
+rmod,tid,10,0.	! CNOF
+rmod,tid,12,0.	! FKT
+rmod,tid,36,25	! WB DSID
+rmod,cid,3,1.	! FKN
+rmod,cid,5,0.	! ICONT
+rmod,cid,6,0.	! PINB
+rmod,cid,10,0.	! CNOF
+rmod,cid,12,0.	! FKT
+rmod,cid,36,25	! WB DSID
+nsel,all
+esel,all
+/wb,contact,end            !  done creating contacts
+    #+END_SRC
+
 ** Material Models
 *** Plasticity
 **** Multilinear Kinematic Hardening (MISO)
